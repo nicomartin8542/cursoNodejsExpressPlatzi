@@ -2,6 +2,8 @@
   "parserOptions": {
     "ecmaVersion": 2018
   },
+
+  "soucetype":"module",
   "extends": [
     "eslint:recommended",
     "prettier"

@@ -1,60 +1,25 @@
-const express = require('express');
-import { faker } from '@faker-js/faker';
+import express from 'express';
+import bodyParser from 'body-parser';
+import apiRouter from './routes/index.js';
+import cors from 'cors';
+
+//Crear servidor
 const app = express();
-const port = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
-});
-app.get('/nueva_ruta', (req, res) => {
-  res.send('Hola esta es mi nueva ruta');
-});
+// parse aplicatio/x-www-form-urlemcoded
+app.use(express.json());
 
-app.get('/products', (req, res) => {
-  let products = [];
+//conectar DB
 
-  for (let i = 0; i < 100; i++) {
-    products.push({
-      name: faker.name.findName(),
-    });
-  }
-  res.json(products);
-});
+//Habilitar cors
+app.use(cors());
 
-//Enviar un parametro en el request
-app.get('/products/:id', (req, res) => {
-  const { id } = req.params;
+//Puerto de la app
+const port = process.env.PORT || 3000;
 
-  res.json({
-    nombre: 'producto 2',
-    precio: 20.0,
-    id,
-  });
-});
+//Importar rutas
+apiRouter(app);
 
-//Enviar mas de un parametro en el request
-app.get('/categories/:categoryId/products/:productId', (req, res) => {
-  const { categoryId, productId } = req.params;
-
-  res.json({
-    categoryId,
-    productId,
-  });
-});
-
-//Query params
-app.get('/users', (req, res) => {
-  const { limit, offset } = req.query;
-  if (limit && offset) {
-    return res.json({
-      limit,
-      offset,
-    });
-  }
-
-  res.send('No hay parametros');
-});
-
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
   console.log('Esta corriendo en el puerto: ' + port);
 });
