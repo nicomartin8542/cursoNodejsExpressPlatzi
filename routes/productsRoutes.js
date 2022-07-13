@@ -1,7 +1,12 @@
 import express from 'express';
-import productsService from '../services/producto.services.js';
+import {
+  crear,
+  borrar,
+  getAll,
+  getFindId,
+  actualizar,
+} from '../services/producto.services.js';
 
-const { crear, borrar, getAll, getFindId, actualizar } = productsService;
 const router = express.Router();
 
 //Enviar un parametro en el request

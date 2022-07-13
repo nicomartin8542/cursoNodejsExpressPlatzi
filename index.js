@@ -1,7 +1,11 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import apiRouter from './routes/index.js';
 import cors from 'cors';
+import {
+  errorHandler,
+  logsErrors,
+  boomErrorHandler,
+} from './middlewares/error.handler.js';
 
 //Crear servidor
 const app = express();
@@ -19,6 +23,11 @@ const port = process.env.PORT || 3000;
 
 //Importar rutas
 apiRouter(app);
+
+//Cacheamos los errores de manera global
+app.use(logsErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 app.listen(port, '0.0.0.0', () => {
   console.log('Esta corriendo en el puerto: ' + port);
