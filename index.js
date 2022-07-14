@@ -6,6 +6,7 @@ import {
   logsErrors,
   boomErrorHandler,
 } from './middlewares/error.handler.js';
+import originCors from './utils/originCors.js';
 
 //Crear servidor
 const app = express();
@@ -15,8 +16,8 @@ app.use(express.json());
 
 //conectar DB
 
-//Habilitar cors
-app.use(cors());
+//Habilitar cors para poder realizar peticiones desde otras ip
+app.use(cors(originCors()));
 
 //Puerto de la app
 const port = process.env.PORT || 3000;
