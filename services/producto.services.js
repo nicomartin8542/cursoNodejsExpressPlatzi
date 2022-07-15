@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import products from '../utils/data.js';
 import boom from '@hapi/boom';
+import pull from '../libs/postgres.pool.js';
 
 //Obtener producto por id
 export const getFindId = async (req, res) => {
@@ -10,12 +11,8 @@ export const getFindId = async (req, res) => {
 //Obtener todos los productos
 export const getAll = async (req, res, next) => {
   try {
-    let algo = true;
-    if (algo) {
-      throw boom.badData('paso algo');
-    }
-
-    res.json(products);
+    const rta = await pull.query('SELECT * FROM task '); //await client.query('select * from task');
+    res.json(rta.rows);
   } catch (error) {
     next(error);
   }

@@ -1,8 +1,8 @@
 const originCors = () => {
-  const whitelist = ['http://localhost:8080', 'https://myapp.com'];
+  const whitelist = ['http://localhost:3000/', 'https://myapp.com'];
   const options = {
     origin: (origin, callback) => {
-      whitelist.inclide(origin)
+      whitelist.includes(origin) || !origin
         ? callback(null, true)
         : callback(new Error('Ip no permitida'));
     },

@@ -16,11 +16,11 @@ app.use(express.json());
 
 //conectar DB
 
-//Habilitar cors para poder realizar peticiones desde otras ip
-app.use(cors(originCors()));
-
 //Puerto de la app
 const port = process.env.PORT || 3000;
+
+//Habilitar cors para poder realizar peticiones desde otras ip
+app.use(cors(originCors()));
 
 //Importar rutas
 apiRouter(app);
