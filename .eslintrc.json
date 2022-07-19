@@ -4,9 +4,9 @@
   },
 
   "soucetype":"module",
+  "parser": "babel-eslint", 
   "extends": [
-    "eslint:recommended",
-    "prettier"
+    "standard"
   ],
   "env": {
     "es6": true,
@@ -14,6 +14,8 @@
     "jest": true
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-use-before-define": "warn", 
+    "spaced-comment": "warn" 
   }
 }

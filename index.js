@@ -14,8 +14,6 @@ const app = express();
 // parse aplicatio/x-www-form-urlemcoded
 app.use(express.json());
 
-//conectar DB
-
 //Puerto de la app
 const port = process.env.PORT || 3000;
 

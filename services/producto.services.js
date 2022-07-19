@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import products from '../utils/data.js';
 import boom from '@hapi/boom';
-import pull from '../libs/postgres.pool.js';
+import sequelize from '../libs/sequelize.js';
 
 //Obtener producto por id
 export const getFindId = async (req, res) => {
@@ -11,8 +11,9 @@ export const getFindId = async (req, res) => {
 //Obtener todos los productos
 export const getAll = async (req, res, next) => {
   try {
-    const rta = await pull.query('SELECT * FROM task '); //await client.query('select * from task');
-    res.json(rta.rows);
+    const sql = 'SELECT * FROM task ';
+    const [data] = await sequelize.query(sql); //await client.query('select * from task');
+    res.json(data);
   } catch (error) {
     next(error);
   }
