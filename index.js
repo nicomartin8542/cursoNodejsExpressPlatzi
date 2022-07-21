@@ -5,6 +5,7 @@ import {
   errorHandler,
   logsErrors,
   boomErrorHandler,
+  ormErrorHandler,
 } from './middlewares/error.handler.js';
 import originCors from './utils/originCors.js';
 
@@ -25,6 +26,7 @@ apiRouter(app);
 
 //Cacheamos los errores de manera global
 app.use(logsErrors);
+app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 

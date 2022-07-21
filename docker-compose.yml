@@ -1,6 +1,8 @@
 version: '3.8'
 
 services:
+
+#Configuracion para POSTGRES
   postgres:
    image: postgres
    container_name:  db
@@ -15,6 +17,7 @@ services:
    volumes:
      - ./postgres_data:/var/lib/postgresql/data
 
+# CONFIGURacion para MYSQL
   pgadmin: 
     image: dpage/pgadmin4
     container_name: pgadmin4
@@ -24,4 +27,25 @@ services:
       - PGADMIN_DEFAULT_EMAIL=nicomartin854@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=admin123
 
-     
+  mysql: 
+    image: mysql
+    container_name: mysql
+    environment: 
+        - MYSQL_DATABASE=my_store 
+        - MYSQL_ROOT_PASSWORD=admin123
+        - MYSQL_PORT=3306
+    ports:
+      - '3306-3306'
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+  
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      environment:
+          - PMA_HOST=mysql
+          - MYSQL_ROOT_PASSWORD=admin123
+      ports:
+        - '8081:80'
+    
+    
