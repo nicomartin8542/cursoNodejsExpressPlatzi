@@ -5,17 +5,18 @@ import setUpModels from '../db/models/index.js';
 //Variables de entorno
 const USER = encodeURIComponent(config.dbUser);
 const PASSWORD = encodeURIComponent(config.dbPassword);
-const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+const DIALECT = encodeURIComponent(config.dbDialect);
+const URI = `${DIALECT}://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
 
 const sequelize = new Sequelize(URI, {
-  dialect: 'postgres',
+  dialect: DIALECT,
   logQueryParameters: true,
 });
 
-//Configuracion inicial de cada modelo
+// Configuracion inicial de cada modelo
 setUpModels(sequelize);
 
-//Hagarro los modelos y crea la esctructura en la base de datos
-sequelize.sync();
+// Hagarro los modelos y crea la esctructura en la base de datos - No recomendable
+//sequelize.sync();
 
 export default sequelize;

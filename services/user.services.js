@@ -51,7 +51,7 @@ export const deleteUser = async (req, res, next) => {
   try {
     const user = await models.User.findByPk(id);
     if (!user) throw boom.notFound('User not found');
-    const rta = await user.destroy();
+    await user.destroy();
     res.json({ message: 'User deleted! ', email: user.email });
   } catch (error) {
     next(error);

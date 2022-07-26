@@ -1,4 +1,3 @@
-import sequelize from 'sequelize';
 import { Sequelize, Model, DataTypes } from 'sequelize';
 
 //Nombre de la tabla en la base de datos
@@ -23,6 +22,13 @@ export const UserSchema = {
     allowNull: false,
     type: DataTypes.STRING,
   },
+
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    defaultValue: 'costumer',
+  },
+
   createAt: {
     allowNull: false,
     type: DataTypes.DATE,
