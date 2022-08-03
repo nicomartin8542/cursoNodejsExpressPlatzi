@@ -3,7 +3,7 @@ import Joi from 'joi';
 const id = Joi.number().integer();
 const email = Joi.string().email().max(100);
 const password = Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'));
-const role = Joi.string().string();
+const role = Joi.string();
 
 export const createUsers = Joi.object({
   email: email.required(),
