@@ -1,14 +1,31 @@
 import express from 'express';
+import validatorHandler from '../middlewares/validator.handler.js';
+import {
+  createCategorySchema,
+  getCategorySchema,
+  updateCategorySchema,
+} from '../schema/category.schema.js';
+import {
+  createCategory,
+  getAll,
+  getByid,
+  updateCategory,
+} from '../services/category.services.js';
 
 const router = express.Router();
 
-//Enviar mas de un parametro en el request
-router.get('/categories/:categoryId/products/:productId', (req, res) => {
-  const { categoryId, productId } = req.params;
+router.get('/:id', validatorHandler(getCategorySchema, 'params'), getByid);
+router.get('/', getAll);
+router.post(
+  '/',
+  validatorHandler(createCategorySchema, 'body'),
+  createCategory
+);
+router.put(
+  '/:id',
+  validatorHandler(getCategorySchema, 'params'),
+  validatorHandler(updateCategorySchema, 'body'),
+  updateCategory
+);
 
-  res.json({
-    categoryId,
-    productId,
-  });
-});
 export default router;

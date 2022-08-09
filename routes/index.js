@@ -15,6 +15,7 @@ const apiRouter = (app) => {
   router.use('/users', usersRouter);
   router.use('/category', categoryRouter);
   router.use('/customer', customerRouter);
+  router.use('/category', categoryRouter);
 };
 
 export default apiRouter;

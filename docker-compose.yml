@@ -16,6 +16,8 @@ services:
 
    volumes:
      - ./postgres_data:/var/lib/postgresql/data
+   networks: 
+     - my_network
 
 # CONFIGURacion para MYSQL
   pgadmin:
@@ -26,6 +28,8 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=nicomartin854@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=admin123
+    networks: 
+      - my_network
 
   mysql:
     image: mysql
@@ -49,3 +53,6 @@ services:
       ports:
         - '8081:80'
 
+networks: 
+   my_network:
+     name: my_network

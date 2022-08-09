@@ -4,7 +4,9 @@ const { models } = sequelize;
 
 export const getByid = async (req, res, next) => {
   try {
-    const user = await models.Customer.findByPk(req.params.id);
+    const user = await models.Customer.findByPk(req.params.id, {
+      include: ['user'],
+    });
     if (!user) throw boom.notFound('User not found');
     res.json(user);
   } catch (error) {
@@ -14,7 +16,9 @@ export const getByid = async (req, res, next) => {
 
 export const getAll = async (req, res, next) => {
   try {
-    const users = await models.Customer.findAll();
+    const users = await models.Customer.findAll({
+      include: ['user'],
+    });
     res.json(users);
   } catch (error) {
     next(error);
@@ -23,7 +27,9 @@ export const getAll = async (req, res, next) => {
 
 export const createCustomer = async (req, res, next) => {
   try {
-    const newCustomer = await models.Customer.create(req.body);
+    const newCustomer = await models.Customer.create(req.body, {
+      include: ['user'],
+    });
     res.json(newCustomer);
   } catch (error) {
     next(error);

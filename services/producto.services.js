@@ -1,44 +1,39 @@
-import { faker } from '@faker-js/faker';
-import products from '../utils/data.js';
 import boom from '@hapi/boom';
 import sequelize from '../libs/sequelize.js';
+const { models } = sequelize;
 
 //Obtener producto por id
-export const getFindId = async (req, res) => {
-  res.json(products.filter((prod) => prod.id === parseInt(req.params.id)));
+export const getFindId = async (req, res, next) => {
+  try {
+    const product = await models.Product.findByPk(req.params.id, {
+      include: ['category'],
+    });
+    if (!product) throw boom.notFound('Product not found');
+    res.json(product);
+  } catch (error) {
+    next(error);
+  }
 };
 
 //Obtener todos los productos
 export const getAll = async (req, res, next) => {
   try {
-    const sql = 'SELECT * FROM task ';
-    const [data] = await sequelize.query(sql); //await client.query('select * from task');
-    res.json(data);
+    const pruducts = await models.Product.findAll({
+      include: ['category'],
+    });
+    res.json(pruducts);
   } catch (error) {
     next(error);
   }
 };
 
 //Crear producto
-export const crear = async (req, res) => {
-  const body = req.body;
-
-  const newProduct = {
-    id: faker.datatype.number(),
-    ...body,
-  };
+export const crear = async (req, res, next) => {
   try {
-    products.push(newProduct);
-
-    res.status(201).json({
-      message: 'Created',
-      data: newProduct,
-    });
+    const product = await models.Product.create(req.body);
+    res.json(product);
   } catch (error) {
-    res.status(400).json({
-      menssage: 'No se pudo crear',
-      error,
-    });
+    next(error);
   }
 };
 
