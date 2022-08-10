@@ -1,5 +1,6 @@
 import boom from '@hapi/boom';
 import sequelize from '../libs/sequelize.js';
+import { Op } from 'sequelize';
 const { models } = sequelize;
 
 //Obtener producto por id
@@ -17,10 +18,30 @@ export const getFindId = async (req, res, next) => {
 
 //Obtener todos los productos
 export const getAll = async (req, res, next) => {
+  const { limit, offset, price, price_min, price_max } = req.query;
+  const options = {
+    include: ['category'],
+    where: {},
+  };
+
+  if (limit && offset) {
+    options.limit = limit;
+    options.offset = offset;
+  }
+
+  if (price_min && price_max) {
+    options.where.price = {
+      [Op.gte]: price_min,
+      [Op.lte]: price_max,
+    };
+  }
+
+  if (price) {
+    options.where.price = price;
+  }
+
   try {
-    const pruducts = await models.Product.findAll({
-      include: ['category'],
-    });
+    const pruducts = await models.Product.findAll(options);
     res.json(pruducts);
   } catch (error) {
     next(error);

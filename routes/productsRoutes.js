@@ -11,6 +11,7 @@ import {
   createProductSchema,
   getProductSchema,
   updateProductSchema,
+  queryProductSchema,
 } from '../schema/product.schema.js';
 
 const router = express.Router();
@@ -18,7 +19,7 @@ const router = express.Router();
 //Enviar un parametro en el request
 router.get('/:id', validatorHandler(getProductSchema, 'params'), getFindId);
 
-router.get('/', getAll);
+router.get('/', validatorHandler(queryProductSchema, 'query'), getAll);
 
 router.post('/', validatorHandler(createProductSchema, 'body'), crear);
 

@@ -10,6 +10,7 @@ export const getByid = async (req, res, next) => {
           association: 'costumer',
           include: ['user'],
         },
+        'items',
       ],
     });
     if (!order) throw boom.notFound('Order not found');
@@ -21,14 +22,7 @@ export const getByid = async (req, res, next) => {
 
 export const getAll = async (req, res, next) => {
   try {
-    const orders = await models.Order.findAll({
-      include: [
-        {
-          association: 'costumer',
-          include: ['user'],
-        },
-      ],
-    });
+    const orders = await models.Order.findAll();
     res.json(orders);
   } catch (error) {
     next(error);
@@ -39,6 +33,15 @@ export const create = async (req, res, next) => {
   try {
     const newOrder = await models.Order.create(req.body);
     res.json(newOrder);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addItems = async (req, res, next) => {
+  try {
+    const newItem = await models.OrderProduct.create(req.body);
+    res.json(newItem);
   } catch (error) {
     next(error);
   }
