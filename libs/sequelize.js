@@ -16,7 +16,7 @@ const sequelize = new Sequelize(URI, {
 // Configuracion inicial de cada modelo
 setUpModels(sequelize);
 
-// Hagarro los modelos y crea la esctructura en la base de datos - No recomendable
+// agarro los modelos y crea la esctructura en la base de datos - No recomendable
 //sequelize.sync();
 
 export default sequelize;

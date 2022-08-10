@@ -3,6 +3,7 @@ import productsRoutes from './productsRoutes.js';
 import usersRouter from './usersRouter.js';
 import categoryRouter from './categoryRouter.js';
 import customerRouter from './customerRouter.js';
+import orderRouter from './orderRouter.js';
 
 ////////////////////////////////
 const apiRouter = (app) => {
@@ -16,6 +17,7 @@ const apiRouter = (app) => {
   router.use('/category', categoryRouter);
   router.use('/customer', customerRouter);
   router.use('/category', categoryRouter);
+  router.use('/order', orderRouter);
 };
 
 export default apiRouter;
