@@ -20,6 +20,7 @@ export const getAll = async (req, res, next) => {
     const data = await models.User.findAll({
       include: ['customer'],
     });
+    delete data.password;
     res.json(data);
   } catch (error) {
     next(error);

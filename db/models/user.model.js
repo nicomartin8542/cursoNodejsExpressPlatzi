@@ -1,4 +1,5 @@
 import { Sequelize, Model, DataTypes } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 //Nombre de la tabla en la base de datos
 export const USER_TABLE = 'users';
@@ -24,9 +25,9 @@ export const UserSchema = {
   },
 
   role: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
-    defaultValue: 'costumer',
+    defaultValue: 'customer',
   },
 
   createAt: {
@@ -48,6 +49,14 @@ export class User extends Model {
       tableName: USER_TABLE,
       modelName: 'User',
       timestamps: false,
+      hooks: {
+        beforeCreate: async (user) => {
+          user.password = await bcrypt.hash(user.password, 10);
+        },
+        afterCreate: async (user) => {
+          delete user.dataValues.password;
+        },
+      },
     };
   }
 }
