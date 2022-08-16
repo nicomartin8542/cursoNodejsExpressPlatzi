@@ -15,6 +15,17 @@ export const getByid = async (req, res, next) => {
     next(error);
   }
 };
+export const getByEmail = async (email) => {
+  try {
+    const user = await models.User.findOne({
+      where: { email },
+    });
+
+    return user;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getAll = async (req, res, next) => {
   try {

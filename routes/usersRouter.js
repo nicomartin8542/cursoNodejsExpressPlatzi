@@ -1,5 +1,4 @@
 import express from 'express';
-import { authHandler } from '../middlewares/auth.handler.js';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   createUsers,
@@ -20,7 +19,7 @@ const router = express.Router();
 router.get('/:id', validatorHandler(getByIdUsers, 'params'), getByid);
 
 //Get
-router.get('/', authHandler, getAll);
+router.get('/', getAll);
 
 //Post Create
 router.post('/', validatorHandler(createUsers, 'body'), createUserPost);

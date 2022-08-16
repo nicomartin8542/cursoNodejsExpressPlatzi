@@ -4,6 +4,7 @@ import usersRouter from './usersRouter.js';
 import categoryRouter from './categoryRouter.js';
 import customerRouter from './customerRouter.js';
 import orderRouter from './orderRouter.js';
+import authRouter from './authRouter.js';
 
 ////////////////////////////////
 const apiRouter = (app) => {
@@ -18,6 +19,7 @@ const apiRouter = (app) => {
   router.use('/customer', customerRouter);
   router.use('/category', categoryRouter);
   router.use('/order', orderRouter);
+  router.use('/auth', authRouter);
 };
 
 export default apiRouter;

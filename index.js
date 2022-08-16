@@ -21,6 +21,9 @@ const port = process.env.PORT || 3000;
 //Habilitar cors para poder realizar peticiones desde otras ip
 app.use(cors(originCors()));
 
+//Use strategies passport
+import './utils/auth/index.js';
+
 //Importar rutas
 apiRouter(app);
 
