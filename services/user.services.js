@@ -9,6 +9,7 @@ export const getByid = async (req, res, next) => {
       include: ['customer'],
     });
     if (!data) throw boom.notFound('User not found');
+    delete data.password;
     res.json(data);
   } catch (error) {
     next(error);
