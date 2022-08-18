@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import {
   crear,
   borrar,
@@ -21,7 +22,12 @@ router.get('/:id', validatorHandler(getProductSchema, 'params'), getFindId);
 
 router.get('/', validatorHandler(queryProductSchema, 'query'), getAll);
 
-router.post('/', validatorHandler(createProductSchema, 'body'), crear);
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(createProductSchema, 'body'),
+  crear
+);
 
 router.put(
   '/:id',

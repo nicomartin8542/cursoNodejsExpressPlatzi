@@ -9,6 +9,7 @@ const config = {
   dbPort: process.env.DB_PORT,
   dbName: process.env.DB_NAME,
   dbDialect: process.env.DB_DIALECT,
+  jwtSecret: process.env.JWT_SECRET,
 };
 
 export default config;

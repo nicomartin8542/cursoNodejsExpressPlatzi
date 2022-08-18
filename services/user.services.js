@@ -6,6 +6,7 @@ export const getByid = async (req, res, next) => {
   const { id } = req.params;
   try {
     const data = await models.User.findByPk(id, {
+      attributes: { exclude: ['password'] },
       include: ['customer'],
     });
     if (!data) throw boom.notFound('User not found');
@@ -30,9 +31,10 @@ export const getByEmail = async (email) => {
 export const getAll = async (req, res, next) => {
   try {
     const data = await models.User.findAll({
+      attributes: { exclude: ['password'] },
+      order: [['id', 'ASC']],
       include: ['customer'],
     });
-    delete data.password;
     res.json(data);
   } catch (error) {
     next(error);

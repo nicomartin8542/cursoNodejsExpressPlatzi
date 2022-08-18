@@ -27,6 +27,7 @@ export const OrderSchema = {
     defaultValue: Sequelize.NOW,
   },
 
+  //Campo virtual, no existe en la base de datos, sirver para sacar totales
   total: {
     type: DataTypes.VIRTUAL,
     get() {
