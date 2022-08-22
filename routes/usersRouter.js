@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import { authRoles } from '../middlewares/auth.handler.js';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   createUsers,
@@ -20,17 +21,24 @@ const router = express.Router();
 router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
   validatorHandler(getByIdUsers, 'params'),
   getByid
 );
 
 //Get
-router.get('/', passport.authenticate('jwt', { session: false }), getAll);
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
+  getAll
+);
 
 //Post Create
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  authRoles('admin'),
   validatorHandler(createUsers, 'body'),
   createUserPost
 );
@@ -39,12 +47,18 @@ router.post(
 router.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authRoles('admin'),
   validatorHandler(getByIdUsers, 'params'),
   validatorHandler(updateUsers, 'body'),
   updateUserPatch
 );
 
 //Delete
-router.delete('/:id', validatorHandler(getByIdUsers, 'params'), deleteUser);
+router.delete(
+  '/:id',
+  validatorHandler(getByIdUsers, 'params'),
+  authRoles('admin'),
+  deleteUser
+);
 
 export default router;

@@ -1,5 +1,6 @@
 import express from 'express';
 import passport from 'passport';
+import { authRoles } from '../middlewares/auth.handler.js';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   getCustomerSchema,
@@ -21,17 +22,24 @@ const router = express.Router();
 router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
   validatorHandler(getCustomerSchema, 'params'),
   getByid
 );
 
 //Get
-router.get('/', passport.authenticate('jwt', { session: false }), getAll);
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
+  getAll
+);
 
 //Post Create
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
   validatorHandler(createCustomerSchema, 'body'),
   createCustomer
 );
@@ -40,6 +48,7 @@ router.post(
 router.patch(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authRoles('all'),
   validatorHandler(getCustomerSchema, 'params'),
   validatorHandler(updateCustomerSchema, 'body'),
   updateCustomer
@@ -49,6 +58,7 @@ router.patch(
 router.delete(
   '/:id',
   passport.authenticate('jwt', { session: false }),
+  authRoles('admin'),
   validatorHandler(deleteCustomerSchema, 'params'),
   deleteCustomer
 );

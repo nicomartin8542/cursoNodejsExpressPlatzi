@@ -52,6 +52,11 @@ router.put(
   actualizar
 );
 
-router.delete('/:id', borrar);
+router.delete(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  authRoles('admin'),
+  borrar
+);
 
 export default router;
