@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   getCustomerSchema,
@@ -17,14 +18,20 @@ import {
 const router = express.Router();
 
 //Get by id
-router.get('/:id', validatorHandler(getCustomerSchema, 'params'), getByid);
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(getCustomerSchema, 'params'),
+  getByid
+);
 
 //Get
-router.get('/', getAll);
+router.get('/', passport.authenticate('jwt', { session: false }), getAll);
 
 //Post Create
 router.post(
   '/',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(createCustomerSchema, 'body'),
   createCustomer
 );
@@ -32,6 +39,7 @@ router.post(
 //Patch
 router.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(getCustomerSchema, 'params'),
   validatorHandler(updateCustomerSchema, 'body'),
   updateCustomer
@@ -40,6 +48,7 @@ router.patch(
 //delete
 router.delete(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(deleteCustomerSchema, 'params'),
   deleteCustomer
 );

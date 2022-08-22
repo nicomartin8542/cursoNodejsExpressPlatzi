@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   createUsers,
@@ -16,17 +17,28 @@ import {
 const router = express.Router();
 
 //Get by id
-router.get('/:id', validatorHandler(getByIdUsers, 'params'), getByid);
+router.get(
+  '/:id',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(getByIdUsers, 'params'),
+  getByid
+);
 
 //Get
-router.get('/', getAll);
+router.get('/', passport.authenticate('jwt', { session: false }), getAll);
 
 //Post Create
-router.post('/', validatorHandler(createUsers, 'body'), createUserPost);
+router.post(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(createUsers, 'body'),
+  createUserPost
+);
 
 //Put
 router.patch(
   '/:id',
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(getByIdUsers, 'params'),
   validatorHandler(updateUsers, 'body'),
   updateUserPatch

@@ -5,7 +5,6 @@ import categoryRouter from './categoryRouter.js';
 import customerRouter from './customerRouter.js';
 import orderRouter from './orderRouter.js';
 import authRouter from './authRouter.js';
-
 ////////////////////////////////
 const apiRouter = (app) => {
   //Genero ruta estatica para la version
