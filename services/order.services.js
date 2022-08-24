@@ -54,7 +54,6 @@ export const getByUser = async (req, res, next) => {
 export const getAll = async (req, res, next) => {
   try {
     const orders = await models.Order.findAll();
-    console.log(orders);
     res.json(orders);
   } catch (error) {
     next(error);
