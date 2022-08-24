@@ -38,8 +38,6 @@ router.get(
 //Post Create
 router.post(
   '/',
-  passport.authenticate('jwt', { session: false }),
-  authRoles('all'),
   validatorHandler(createCustomerSchema, 'body'),
   createCustomer
 );
@@ -47,8 +45,6 @@ router.post(
 //Patch
 router.patch(
   '/:id',
-  passport.authenticate('jwt', { session: false }),
-  authRoles('all'),
   validatorHandler(getCustomerSchema, 'params'),
   validatorHandler(updateCustomerSchema, 'body'),
   updateCustomer

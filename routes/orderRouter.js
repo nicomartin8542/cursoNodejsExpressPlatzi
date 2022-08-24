@@ -3,14 +3,14 @@ import passport from 'passport';
 import validatorHandler from '../middlewares/validator.handler.js';
 import {
   getOrderByIdSchema,
-  createOrderSchema,
+  //createOrderSchema,
   createItem,
 } from '../schema/order.schema.js';
 import {
   getByid,
-  create,
   getAll,
   addItems,
+  createOrder,
 } from '../services/order.services.js';
 
 //Instancio router de express
@@ -31,8 +31,8 @@ router.get('/', passport.authenticate('jwt', { session: false }), getAll);
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
-  validatorHandler(createOrderSchema, 'body'),
-  create
+  //validatorHandler(createOrderSchema, 'body'),
+  createOrder
 );
 
 //Post create items

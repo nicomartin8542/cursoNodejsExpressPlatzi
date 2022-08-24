@@ -50,7 +50,7 @@ export const OrderProductSchema = {
 };
 
 export class OrderProduct extends Model {
-  static associate(models) {
+  static associate() {
     //associate
   }
 

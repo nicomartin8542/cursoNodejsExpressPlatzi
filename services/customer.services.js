@@ -1,5 +1,6 @@
 import sequelize from '../libs/sequelize.js';
 import boom from '@hapi/boom';
+import { authRegister } from './auth.services.js';
 const { models } = sequelize;
 
 export const getByid = async (req, res, next) => {
@@ -34,7 +35,8 @@ export const createCustomer = async (req, res, next) => {
     const newCustomer = await models.Customer.create(req.body, {
       include: ['user'],
     });
-    res.json(newCustomer);
+    const token = await authRegister(newCustomer.user);
+    res.json({ newCustomer, token });
   } catch (error) {
     next(error);
   }

@@ -10,9 +10,9 @@ export const getOrderByIdSchema = Joi.object({
   id: id.required(),
 });
 
-export const createOrderSchema = Joi.object({
-  costumerId: costumerId.required(),
-});
+//export const createOrderSchema = Joi.object({
+//  costumerId: costumerId.required(),
+//});
 
 export const createItem = Joi.object({
   orderId: orderId.required(),

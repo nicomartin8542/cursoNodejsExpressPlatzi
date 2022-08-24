@@ -18,3 +18,13 @@ export const authLogin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const authRegister = async (user) => {
+  const jwtConfig = { expiresIn: 1800 };
+  const payload = {
+    sub: user.id,
+    role: user.role,
+  };
+  const token = jwt.sign(payload, config.jwtSecret, jwtConfig);
+  return token;
+};

@@ -5,6 +5,7 @@ import categoryRouter from './categoryRouter.js';
 import customerRouter from './customerRouter.js';
 import orderRouter from './orderRouter.js';
 import authRouter from './authRouter.js';
+import profileRouter from './profileRouter.js';
 ////////////////////////////////
 const apiRouter = (app) => {
   //Genero ruta estatica para la version
@@ -19,6 +20,7 @@ const apiRouter = (app) => {
   router.use('/category', categoryRouter);
   router.use('/order', orderRouter);
   router.use('/auth', authRouter);
+  router.use('/profile', profileRouter);
 };
 
 export default apiRouter;

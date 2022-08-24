@@ -4,11 +4,16 @@ const { models } = sequelize;
 
 export const getByid = async (req, res, next) => {
   try {
+    const userInclude = {
+      model: models.User,
+      as: 'user',
+      attributes: { exclude: ['password'] },
+    };
     const order = await models.Order.findByPk(req.params.id, {
       include: [
         {
           association: 'costumer',
-          include: ['user'],
+          include: [userInclude],
         },
         'items',
       ],
@@ -20,18 +25,50 @@ export const getByid = async (req, res, next) => {
   }
 };
 
-export const getAll = async (req, res, next) => {
+export const getByUser = async (req, res, next) => {
   try {
-    const orders = await models.Order.findAll();
+    const userId = req.user.sub;
+    const userInclude = {
+      model: models.User,
+      as: 'user',
+      attributes: { exclude: ['password'] },
+    };
+    const orders = await models.Order.findAll({
+      where: {
+        '$costumer.user.id$': userId,
+      },
+      include: [
+        {
+          association: 'costumer',
+          include: [userInclude],
+        },
+        'items',
+      ],
+    });
     res.json(orders);
   } catch (error) {
     next(error);
   }
 };
 
-export const create = async (req, res, next) => {
+export const getAll = async (req, res, next) => {
   try {
-    const newOrder = await models.Order.create(req.body);
+    const orders = await models.Order.findAll();
+    console.log(orders);
+    res.json(orders);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createOrder = async (req, res, next) => {
+  try {
+    const userId = req.user.sub;
+    const customer = await models.Customer.findOne({
+      where: { userId },
+    });
+    if (!customer) throw boom.notFound('User not found with customer');
+    const newOrder = await models.Order.create({ costumerId: customer.id });
     res.json(newOrder);
   } catch (error) {
     next(error);
