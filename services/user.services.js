@@ -1,6 +1,6 @@
 import sequelize from '../libs/sequelize.js';
 import boom from '@hapi/boom';
-import { authRegister } from './auth.services.js';
+import { singToken } from './auth.services.js';
 const { models } = sequelize;
 
 export const getByid = async (req, res, next) => {
@@ -46,7 +46,7 @@ export const createUserPost = async (req, res, next) => {
   const body = req.body;
   try {
     const user = await models.User.create(body);
-    const token = await authRegister(user);
+    const token = singToken(user);
     res.json({ user, token });
   } catch (error) {
     next(error);

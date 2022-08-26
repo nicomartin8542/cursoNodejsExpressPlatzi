@@ -10,6 +10,11 @@ const config = {
   dbName: process.env.DB_NAME,
   dbDialect: process.env.DB_DIALECT,
   jwtSecret: process.env.JWT_SECRET,
+  jwtExpiration: process.env.JWT_EXPIRES,
+  portMail: process.env.PORT_MAIL,
+  sftpMail: process.env.SFTP_MAIL,
+  userMail: process.env.USER_MAIL,
+  passMail: process.env.PASSWORD_MAIL,
 };
 
 export default config;
