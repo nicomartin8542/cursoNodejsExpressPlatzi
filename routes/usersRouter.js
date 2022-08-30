@@ -27,12 +27,7 @@ router.get(
 );
 
 //Get
-router.get(
-  '/',
-  passport.authenticate('jwt', { session: false }),
-  authRoles('all'),
-  getAll
-);
+router.get('/', passport.authenticate('jwt', { session: false }), getAll);
 
 //Post Create
 router.post(

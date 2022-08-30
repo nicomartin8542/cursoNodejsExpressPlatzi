@@ -12,7 +12,7 @@ export const singToken = (user) => {
     role: user.role,
   };
   const token = jwt.sign(payload, config.jwtSecret, jwtConfig);
-  return token;
+  return { token };
 };
 
 export const getValidUserPassword = async (email, password) => {
@@ -54,6 +54,7 @@ export const authRecovery = async (req, res, next) => {
 
     //Send mail
     sendMail(dataMail);
+    res.json({ message: 'Send mail' });
   } catch (error) {
     next(error);
   }

@@ -61,6 +61,7 @@ export const updateUserPatch = async (req, res, next) => {
     const user = await models.User.findByPk(id);
     if (!user) throw boom.notFound('User not found');
     const rta = await user.update(body);
+    delete rta.dataValues.password;
     res.json(rta);
   } catch (error) {
     next(error);

@@ -8,7 +8,7 @@ const role = Joi.string();
 export const createUsers = Joi.object({
   email: email.required(),
   password: password.required(),
-  role: role,
+  role: role.required(),
 });
 
 export const updateUsers = Joi.object({
