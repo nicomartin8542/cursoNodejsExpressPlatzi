@@ -15,6 +15,7 @@ const config = {
   sftpMail: process.env.SFTP_MAIL,
   userMail: process.env.USER_MAIL,
   passMail: process.env.PASSWORD_MAIL,
+  jwtSecretEmail: process.env.JWT_SECRET_EMAIL,
 };
 
 export default config;

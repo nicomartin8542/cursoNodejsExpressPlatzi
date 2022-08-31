@@ -13,5 +13,5 @@ export const sendMail = async (data) => {
   });
 
   // send mail with defined transport object
-  await transporter.sendMail(data);
+  return await transporter.sendMail(data);
 };

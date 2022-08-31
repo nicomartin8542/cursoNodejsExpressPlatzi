@@ -21,13 +21,18 @@ const router = express.Router();
 router.get(
   '/:id',
   passport.authenticate('jwt', { session: false }),
-  authRoles('all'),
+  authRoles('admin'),
   validatorHandler(getByIdUsers, 'params'),
   getByid
 );
 
 //Get
-router.get('/', passport.authenticate('jwt', { session: false }), getAll);
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  authRoles('admin'),
+  getAll
+);
 
 //Post Create
 router.post(
